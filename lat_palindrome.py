@@ -27,7 +27,7 @@ while isExit == False :
             no_space_string += i # LIST HURUF DARI USER STRING
     
     # KALIMAT YANG SUDAH BERSIH
-    for i in range(len(no_space_string) - 1, -1, -1):
+    for i in range(len(no_space_string)):
         clear_string += no_space_string[i]
 
     # MEMBALIK KATA/KALIMAT
@@ -38,15 +38,24 @@ while isExit == False :
     # PALINDROME CHECK
     isPalindrome = False
     result = ""
+
+    # DEBUGGING PRINT
+    print(f"\nDEBUGGING PRINT\nKata/Kalimat asli\t\t: {user_string}\nKata/Kalimat tanpa spasi\t: {clear_string}\nKata/Kalimat terbalik\t\t: {reversed_string}")
+
     if reversed_string == clear_string:
         isPalindrome = True
         result = f"Kata/kalimat anda adalah Palindrome."
     else :
-        isPalindrome = True
+        isPalindrome = False
         result = f"Kata/kalimat anda bukan Palindrome."
 
     # PRINT RESULT
-    print(result)
+    if isPalindrome == True :
+        print(result)
+    elif isPalindrome == False:
+        print(result)
+    else :
+        print("Terjadi kesalahan pada program.")
 
     util.print_divider()
 
