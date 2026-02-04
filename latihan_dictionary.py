@@ -87,7 +87,8 @@ while not isExit :
                     SKS = data_mahasiswa[KEY]['sks_lulus']
                     LAHIR = data_mahasiswa[KEY]['lahir'].strftime("%d-%m-%y")
     
-                    print(f"{no:^4} | {KEY:^6} | {NAMA:<20} | {SKS:^5} | {LAHIR:<12}")
+                    print(f"{no:^3} | {KEY:^6} | {NAMA:<20} | {SKS:^5} | {LAHIR:<12}")
+                    no += 1
 
                 util.print_divider("=")
 
@@ -120,16 +121,102 @@ while not isExit :
             pass
         elif pilihan == 3 :
             # UBAH DATA MAHASISWA
+
+            # PRINT TITLE
             util.clear_screen()
-            print("Ubah Data Mahasiswa")
-            tm.sleep(2)
-            pass
+            util.print_divider("=")
+            util.print_title("Ubah Data Mahasiswa", " ")            
+            util.print_divider("=")
+
+            # CEK DATA MAHASISWA ADA / TIDAK
+            if len(data_mahasiswa) == 0 :
+                print("> Data Mahasiswa Tidak Ditemukan")
+                print("> Silahkan Tambah Data Mahasiswa Terlebih Dahulu")
+                tm.sleep(2)
+                pass
+            else :
+                # PRINT HEADER TABLE                
+                print(f"{'No':^3} | {'Key ID':^6} | {'Nama':<20} | {'SKS':^5} | {'Tanggal Lahir':<12}")
+                util.print_divider("-")
+
+                # PRINT DATA MAHASISWA
+                no = 1
+                for mahasiswa in data_mahasiswa :
+                    KEY = mahasiswa
+                    NAMA = data_mahasiswa[KEY]['nama']
+                    SKS = data_mahasiswa[KEY]['sks_lulus']
+                    LAHIR = data_mahasiswa[KEY]['lahir'].strftime("%d-%m-%y")
+
+                    print(f"{no:^3} | {KEY:^6} | {NAMA:<20} | {SKS:^5} | {LAHIR:<12}")
+                    no += 1
+                util.print_divider("=")
+
+                # INPUT KEY MAHASISWA YANG INGIN DIUBAH
+                key_mahasiswa = input("> Masukan Key ID Mahasiswa yang ingin dihapus\t: ")  
+                # CEK KEY EXIST ATAU TIDAK
+                isExist = key_mahasiswa in data_mahasiswa
+                if isExist :
+                    # JIKA KEY DITEMUKAN, CEK DATA MAHASISWA BERDASARKAN KEY
+                    print("> Data Mahasiswa ditemukan. Silahkan ubah data dibawah ini :")
+                    data_to_update = data_mahasiswa[key_mahasiswa]
+                    data_to_update['nama'] = input(f"1. Ubah Nama Mahasiswa ({data_to_update['nama']})\t: ") or data_to_update['nama']
+                    data_to_update['nim'] = input(f"2. Ubah NIM Mahasiswa ({data_to_update['nim']})\t: ") or data_to_update['nim']
+                    data_to_update['sks_lulus'] = int(input(f"3. Ubah SKS Lulus ({data_to_update['sks_lulus']})\t: ")) or data_to_update['sks_lulus']
+                    TAHUN_LAHIR = input(f"4. Ubah Tahun Lahir ({data_to_update['lahir'].year})\t: ") or data_to_update['lahir'].year
+                    BULAN_LAHIR = input(f"   Ubah Bulan Lahir ({data_to_update['lahir'].month})\t: ") or data_to_update['lahir'].month
+                    TANGGAL_LAHIR = input(f"   Ubah Tanggal Lahir ({data_to_update['lahir'].day})\t: ") or data_to_update['lahir'].day
+                    data_to_update['lahir'] = dt.datetime(int(TAHUN_LAHIR), int(BULAN_LAHIR), int(TANGGAL_LAHIR))
+                    data_mahasiswa.update({key_mahasiswa:data_to_update})
+                    print("> Data Mahasiswa Berhasil Diubah.")
+                else :
+                    print("> Key ID Mahasiswa tidak ditemukan.\n> Silahkan ulangi kembali.")
+                tm.sleep(2)
+                pass
         elif pilihan == 4 :
             # HAPUS DATA MAHASISWA
+
+            # PRINT TITLE
             util.clear_screen()
-            print("Hapus Data Mahasiswa")
-            tm.sleep(2)
-            pass
+            util.print_divider("=")
+            util.print_title("Hapus Data Mahasiswa", " ")            
+            util.print_divider("=")
+            # CEK DATA MAHASISWA ADA / TIDAK
+            if len(data_mahasiswa) == 0 :
+                print("> Data Mahasiswa Tidak Ditemukan")
+                print("> Silahkan Tambah Data Mahasiswa Terlebih Dahulu")
+                tm.sleep(2)
+                pass
+            else :
+                # PRINT HEADER TABLE                
+                print(f"{'No':^3} | {'Key ID':^6} | {'Nama':<20} | {'SKS':^5} | {'Tanggal Lahir':<12}")
+                util.print_divider("-")
+
+                # PRINT DATA MAHASISWA
+                no = 1
+                for mahasiswa in data_mahasiswa :
+                    KEY = mahasiswa
+                    NAMA = data_mahasiswa[KEY]['nama']
+                    SKS = data_mahasiswa[KEY]['sks_lulus']
+                    LAHIR = data_mahasiswa[KEY]['lahir'].strftime("%d-%m-%y")
+
+                    print(f"{no:^3} | {KEY:^6} | {NAMA:<20} | {SKS:^5} | {LAHIR:<12}")
+                    np += 1
+
+                util.print_divider("=")
+
+                # INPUT KEY MAHASISWA YANG INGIN DIUBAH
+                key_mahasiswa = input("> Masukan Key ID Mahasiswa yang ingin dihapus\t: ")
+
+                # CEK KEY EXIST ATAU TIDAK
+                isExist = key_mahasiswa in data_mahasiswa
+                if isExist :
+                    # JIKA KEY DITEMUKAN, HAPUS DATA MAHASISWA BERDASARKAN KEY
+                    del data_mahasiswa[key_mahasiswa]
+                    print("> Data Mahasiswa Berhasil Dihapus.")
+                else :
+                    print("> Key ID Mahasiswa tidak ditemukan.\n> Silahkan ulangi kembali.")
+                tm.sleep(2)
+                pass
         elif pilihan == 0 :
             print("Keluar Program")
             tm.sleep(2)
